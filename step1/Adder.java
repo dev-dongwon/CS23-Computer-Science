@@ -21,7 +21,11 @@ public class Adder {
 	}
 	
     public static boolean[] halfadder (boolean bitA, boolean bitB) {
-        boolean[] answer = {sum(bitA, bitB), carry(bitA, bitB)};
+        boolean[] answer = new boolean[2];
+        
+        answer[0] = sum(bitA, bitB);
+        answer[1] = carry(bitA, bitB);
+        
         return answer;
     }
     
@@ -48,9 +52,5 @@ public class Adder {
         
         return answer;
     }
-    
-    
-    
-    
     
 }
