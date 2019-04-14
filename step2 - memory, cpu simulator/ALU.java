@@ -3,14 +3,17 @@ package step2ComputerSimulator;
 
 public class ALU {
 	
+	// ADD 연산
 	public int ADD(int A, int B) {
 		return A + B;
 	}
 	
+	// SUB 연산
 	public int SUB(int A, int B) {
 		return A - B;
 	}
 	
+	// AND 연산
 	public int[] AND(int[] A, int[] B) {
 
 		int[] result = new int[A.length];
@@ -25,6 +28,7 @@ public class ALU {
 		return result;
 	}
 
+	// OR 연산
 	public int[] OR(int[] A, int[] B) {
 		
 		int[] result = new int[A.length];
@@ -38,8 +42,5 @@ public class ALU {
 		}
 		
 		return result;
-	}
-	
-	
-
+	}	
 }
