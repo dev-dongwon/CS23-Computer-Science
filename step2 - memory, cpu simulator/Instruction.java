@@ -15,12 +15,11 @@ public class Instruction {
 			offsetRegBinary = cpu.BinaryArrayToString(offsetReg);
 		} else {
 			int[] offsetValue = {IR[11], IR[12], IR[13], IR[14], IR[15]};
-			int[] offsetData = cpu.decoder(cpu.getRegisterNumber(offsetValue));
-			offsetRegBinary = cpu.BinaryArrayToString(offsetData);
+			offsetRegBinary = cpu.BinaryArrayToString(offsetValue);
 		}
 		
 		String baseRegBinary = cpu.BinaryArrayToString(baseReg);
-		Integer address = cpu.ALU.ADD(Integer.valueOf(baseRegBinary, 2), Integer.valueOf(offsetRegBinary, 2));
+		Integer address = cpu.ALU.ADD(Integer.valueOf(baseRegBinary, 2), Integer.valueOf(offsetRegBinary, 2)) + 0x10000;
 		int[] result = cpu.memory.peek(Integer.toBinaryString(address));
 
 		cpu.decoder(cpu.getRegisterNumber(dstRegBit), result);
@@ -42,8 +41,7 @@ public class Instruction {
 			offsetRegBinary = cpu.BinaryArrayToString(offsetReg);
 		} else {
 			int[] offsetValue = {IR[11], IR[12], IR[13], IR[14], IR[15]};
-			int[] offsetData = cpu.decoder(cpu.getRegisterNumber(offsetValue));
-			offsetRegBinary = cpu.BinaryArrayToString(offsetData);
+			offsetRegBinary = cpu.BinaryArrayToString(offsetValue);
 		}
 		
 		Integer address = cpu.ALU.ADD(Integer.valueOf(baseRegBinary, 2), Integer.valueOf(offsetRegBinary, 2));
@@ -91,8 +89,7 @@ public class Instruction {
 			op2RegBinary = cpu.BinaryArrayToString(op2RegData);
 		} else {
 			int[] op2RegBit = {IR[11], IR[12], IR[13], IR[14], IR[15]};
-			int[] op2RegData = cpu.decoder(cpu.getRegisterNumber(op2RegBit));
-			op2RegBinary = cpu.BinaryArrayToString(op2RegData);
+			op2RegBinary = cpu.BinaryArrayToString(op2RegBit);
 		}
 		
 		Integer result = cpu.ALU.ADD(Integer.valueOf(op1RegBinary, 2), Integer.valueOf(op2RegBinary, 2));
@@ -101,16 +98,55 @@ public class Instruction {
 		int[] dstRegBit = {IR[4], IR[5], IR[6]};
 		cpu.decoder(cpu.getRegisterNumber(dstRegBit), cpu.StringTo16bitArr(answer));
 	}
-//	
-//	
-//	public void SUB(int[] dstReg, int[] opReg1, int[] opReg2) {
-//		String opReg1Binary = BinaryArrayToString(opReg1);
-//		String opReg2Binary = BinaryArrayToString(opReg2);
-//		
-//		Integer value = ALU.SUB(Integer.valueOf(opReg1Binary, 2), Integer.valueOf(opReg2Binary, 2));
-//		dstReg = StringTo16bitArr(Integer.toBinaryString(value));
-//	}
+
+	public void SUB(CPU cpu, int[] IR) {
+		
+		int[] op1RegBit = {IR[7], IR[8], IR[9]};
+		int[] op1RegData = cpu.decoder(cpu.getRegisterNumber(op1RegBit));
+		String op1RegBinary = cpu.BinaryArrayToString(op1RegData);
+		String op2RegBinary = "";
+		
+		if (IR[10] == 0) {
+			int[] op2RegBit = {IR[13], IR[14], IR[15]};
+			int[] op2RegData = cpu.decoder(cpu.getRegisterNumber(op2RegBit));
+			op2RegBinary = cpu.BinaryArrayToString(op2RegData);
+		} else {
+			int[] op2RegBit = new int[16];
+			int index = 10;
+			
+			for (int i=11; i<op2RegBit.length; i++) {
+				op2RegBit[i] = IR[index];
+				index++;
+			}
+		}
+		
+		Integer result = cpu.ALU.SUB(Integer.valueOf(op1RegBinary, 2), Integer.valueOf(op2RegBinary, 2));
+		
+		
+		// 음수일 때 2의 보수(1의 보수 + 1) 취해주고 저장 (음수로 binary 처리하면 java에서는 32비트로 처리가 된다.... 그래서 직접 해줘야 한다. 도대체 왜!!!)
+		if (result < 0) {
+			result = ~result + 1;
+		}
+
+		String answer = Integer.toBinaryString(result);
+		int[] dstRegBit = {IR[4], IR[5], IR[6]};
+		cpu.decoder(cpu.getRegisterNumber(dstRegBit), cpu.StringTo16bitArr(answer));
+	}
 	
+	public void MOV(CPU cpu, int[] IR) {
+		
+		int[] dstRegBit = {IR[4], IR[5], IR[6]};
+		
+		int[] opValueBit = new int[16];
+		int index = 7;
+		
+		for (int i=7; i<opValueBit.length; i++) {
+			opValueBit[i] = IR[index];
+			index++;
+		}
+		
+		cpu.decoder(cpu.getRegisterNumber(dstRegBit), opValueBit);
+	}
 
 
 
