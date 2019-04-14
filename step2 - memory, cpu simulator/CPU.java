@@ -86,9 +86,11 @@ public class CPU {
 	
 	public void execute(int[] IR) {
 		int bit = 0;
+		int binary = 1;
 		
-		for (int i=0; i<4; i++) {
-			bit += IR[i];
+		for (int i=3; i>=0; i--) {
+			bit += IR[i] * binary;
+			binary *= 2;
 		}
 		
 		switch (bit) {
@@ -104,12 +106,12 @@ public class CPU {
 		case 4:
 			instruction.STORE(this, IR);
 			break;
-//		case 5:
-//			instruction.AND(this, IR);
-//			break;
-//		case 6:
-//			instruction.OR(this, IR);
-//			break;
+		case 5:
+			instruction.AND(this, IR);
+			break;
+		case 6:
+			instruction.OR(this, IR);
+			break;
 //		case 7:
 //			instruction.ADD(this, IR);
 //			break;
