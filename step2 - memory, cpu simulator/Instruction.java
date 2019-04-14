@@ -1,7 +1,5 @@
 package step2ComputerSimulator;
 
-import java.util.Arrays;
-
 public class Instruction {
 	
 	public void LOAD(CPU cpu, int[] IR) {
@@ -79,23 +77,30 @@ public class Instruction {
 		cpu.decoder(cpu.getRegisterNumber(dstRegBit), andResult);
 	}
 	
-	
-	
-	
-	
-	
-//	
-//	public void OR(int[] dstReg, int[] opReg1, int[] opReg2) {
-//		dstReg = this.ALU.OR(opReg1, opReg2);
-//	}
-//	
-//	public void ADD(int[] dstReg, int[] opReg1, int[] opReg2) {
-//		String baseRegBinary = BinaryArrayToString(opReg1);
-//		String offsetRegBinary = BinaryArrayToString(opReg2);
-//		
-//		Integer value = ALU.ADD(Integer.valueOf(baseRegBinary, 2), Integer.valueOf(offsetRegBinary, 2));
-//		dstReg = StringTo16bitArr(Integer.toBinaryString(value));
-//	}
+	public void ADD(CPU cpu, int[] IR) {
+
+		int[] op1RegBit = {IR[7], IR[8], IR[9]};
+		int[] op1RegData = cpu.decoder(cpu.getRegisterNumber(op1RegBit));
+
+		String op1RegBinary = cpu.BinaryArrayToString(op1RegData);
+		String op2RegBinary = "";
+		
+		if (IR[10] == 0) {
+			int[] op2RegBit = {IR[13], IR[14], IR[15]};
+			int[] op2RegData = cpu.decoder(cpu.getRegisterNumber(op2RegBit));
+			op2RegBinary = cpu.BinaryArrayToString(op2RegData);
+		} else {
+			int[] op2RegBit = {IR[11], IR[12], IR[13], IR[14], IR[15]};
+			int[] op2RegData = cpu.decoder(cpu.getRegisterNumber(op2RegBit));
+			op2RegBinary = cpu.BinaryArrayToString(op2RegData);
+		}
+		
+		Integer result = cpu.ALU.ADD(Integer.valueOf(op1RegBinary, 2), Integer.valueOf(op2RegBinary, 2));
+		String answer = Integer.toBinaryString(result);
+		
+		int[] dstRegBit = {IR[4], IR[5], IR[6]};
+		cpu.decoder(cpu.getRegisterNumber(dstRegBit), cpu.StringTo16bitArr(answer));
+	}
 //	
 //	
 //	public void SUB(int[] dstReg, int[] opReg1, int[] opReg2) {
