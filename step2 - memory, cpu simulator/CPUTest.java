@@ -185,6 +185,23 @@ public class CPUTest {
 	
 	@Test
 	public void dumpTest() {
+		Memory memory = new Memory();
+		CPU cpu = new CPU(memory);
+
+		int[] data1 = {1,0,1,1,1,0,0,0,1,1,1,1,1,0,1,0};
+		int[] data2 = {1,0,1,1,1,0,1,1,1,1,1,1,1,0,1,1};
+
+		cpu.register.R1 = data1;
+		cpu.register.R2 = data2;
+		cpu.register.R3 = data1;
+		cpu.register.R4 = data2;
+		cpu.register.R5 = data1;
+		cpu.register.R6 = data2;
+		cpu.register.R7 = data1;
 		
+		int[][] registers = {cpu.register.R1, cpu.register.R2, cpu.register.R3, cpu.register.R4, cpu.register.R5, cpu.register.R6, cpu.register.R7};
+		
+		assertArrayEquals(registers, cpu.dump());
+
 	}
 }
