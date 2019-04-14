@@ -180,7 +180,15 @@ public class CPUTest {
 	
 	@Test
 	public void fetchTest() {
+		Memory memory = new Memory();
+		CPU cpu = new CPU(memory);
 		
+		cpu.register.PC = 20;
+		int[] data = {1,0,1,1,1,0,0,0,1,1,1,1,1,0,1,0};
+		
+		cpu.memory.getMEMORY_MODEL()[0][20] = data;
+		
+		assertArrayEquals(data, cpu.fetch());
 	}
 	
 	@Test
@@ -199,9 +207,9 @@ public class CPUTest {
 		cpu.register.R6 = data2;
 		cpu.register.R7 = data1;
 		
-		int[][] registers = {cpu.register.R1, cpu.register.R2, cpu.register.R3, cpu.register.R4, cpu.register.R5, cpu.register.R6, cpu.register.R7};
+		int[][] expectedRegisters = {cpu.register.R1, cpu.register.R2, cpu.register.R3, cpu.register.R4, cpu.register.R5, cpu.register.R6, cpu.register.R7};
 		
-		assertArrayEquals(registers, cpu.dump());
+		assertArrayEquals(expectedRegisters, cpu.dump());
 
 	}
 }
