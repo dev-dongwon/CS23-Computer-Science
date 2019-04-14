@@ -1,5 +1,6 @@
 package step2ComputerSimulator;
 
+
 public class ALU {
 	
 	public int ADD(int A, int B) {
@@ -21,7 +22,6 @@ public class ALU {
 				result[i] = 0;
 			}
 		}
-
 		return result;
 	}
 
