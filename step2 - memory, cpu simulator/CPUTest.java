@@ -1,6 +1,7 @@
 package step2ComputerSimulator;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
@@ -143,6 +144,47 @@ public class CPUTest {
 		
 		System.out.println(Arrays.toString(cpu.register.R4));
 		assertArrayEquals(expectedResult, cpu.register.R4);
+		
+	}
+	
+	@Test
+	public void resetTest() {
+
+		Memory memory = new Memory();
+		CPU cpu = new CPU(memory);
+		
+		int[] data = {1,0,1,1,1,0,0,0,1,1,1,1,1,0,1,0};
+
+		cpu.register.PC = 4;
+		cpu.register.R1 = data;
+		cpu.register.R2 = data;
+		cpu.register.R3 = data;
+		cpu.register.R4 = data;
+		cpu.register.R5 = data;
+		cpu.register.R6 = data;
+		cpu.register.R7 = data;
+		
+		cpu.reset();
+		int[] expectedArr = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		
+		assertEquals(0, cpu.register.PC);
+		assertArrayEquals(cpu.register.R1, expectedArr);
+		assertArrayEquals(cpu.register.R2, expectedArr);
+		assertArrayEquals(cpu.register.R3, expectedArr);
+		assertArrayEquals(cpu.register.R4, expectedArr);
+		assertArrayEquals(cpu.register.R5, expectedArr);
+		assertArrayEquals(cpu.register.R6, expectedArr);
+		assertArrayEquals(cpu.register.R7, expectedArr);
+		
+	}
+	
+	@Test
+	public void fetchTest() {
+		
+	}
+	
+	@Test
+	public void dumpTest() {
 		
 	}
 }
