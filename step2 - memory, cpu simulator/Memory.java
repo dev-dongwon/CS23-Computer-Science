@@ -36,7 +36,8 @@ public class Memory {
 		
 		for (int i=0; i<program.length; i++) {
 			if (Arrays.equals(emptyArea, MEMORY_MODEL[0][programTextAreaIndex])) {
-				MEMORY_MODEL[0][programTextAreaIndex++] = program[i];
+				MEMORY_MODEL[0][programTextAreaIndex] = program[i];
+				programTextAreaIndex++;
 			}
 		}
 	}

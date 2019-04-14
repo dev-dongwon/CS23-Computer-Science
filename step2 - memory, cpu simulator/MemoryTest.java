@@ -51,21 +51,29 @@ public class MemoryTest {
 	
 	@Test
 	public void locateTest() {
-		
-		int[][] testCases = {{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},{1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0}};
 		Memory memory = new Memory();
 		
-		memory.locate(testCases);
+		int[] MOV1 = {1,0,1,1,1,0,0,0,1,0,1,0,0,0,0,0};
+		int[] MOV2 = {1,0,1,1,1,0,1,0,0,0,0,0,0,0,1,0};
+		int[] LOAD = {0,0,0,1,0,0,1,1,0,0,0,0,0,1,0,1};
+		int[] ADD = {1,0,0,0,0,1,0,0,0,1,1,0,0,1,0,0};
+		int[] SUB = {1,0,0,1,0,1,1,0,0,1,0,0,0,0,1,0};
+		int[] STORE = {0,1,0,0,0,1,1,1,0,0,1,0,0,1,0,0};
+		
+		int[][] IR = {MOV1, MOV2, LOAD, ADD, SUB, STORE};
+
+		
+		memory.locate(IR);
 		
 		// locate test
-		for (int i=0; i<testCases.length; i++) {
-			assertArrayEquals(testCases[i], memory.getMEMORY_MODEL()[0][i]);
+		for (int i=0; i<IR.length; i++) {
+			assertArrayEquals(IR[i], memory.getMEMORY_MODEL()[0][i]);
 		}
 
 		// locate and peek test
-		for (int i=0; i<testCases.length; i++) {
+		for (int i=0; i<IR.length; i++) {
 			String address = Integer.toString(i);
-			assertArrayEquals(testCases[i], memory.peek(address));
+			assertArrayEquals(IR[i], memory.peek(address));
 		}
 	}
 	
