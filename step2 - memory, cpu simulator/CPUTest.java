@@ -69,24 +69,23 @@ public class CPUTest {
 		assertArrayEquals(expectedResult, cpu.register.R3);
 	}
 	
-//	@Test
-//	public void orTest() {
-//		Memory memory = new Memory();
-//		CPU cpu = new CPU(memory);
-//		
-//		int[] case1 = {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0};
-//		int[] case2 = {0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1};
-//		int[] expectedResult = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-//		
-////		AND R3, R1, R6 ==> 0101 011 001 000 110 => R3 = R1 && R6 
-//		cpu.register.R1 = case1;
-//		cpu.register.R6 = case2;
-//		
-//		int[] instructionBit = {0,1,0,1,0,1,1,0,0,1,0,0,0,1,1,0};
-//		cpu.instruction.AND(cpu, instructionBit);
-//		
-//		assertArrayEquals(expectedResult, cpu.register.R3);
-//
-//	}
+	@Test
+	public void orTest() {
+		Memory memory = new Memory();
+		CPU cpu = new CPU(memory);
+		
+		int[] case1 = {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0};
+		int[] case2 = {0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1};
+		int[] expectedResult = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+		
+//		OR R3, R1, R6 ==> 0110 011 001 000 110 => R3 = R1 || R6 
+		cpu.register.R1 = case1;
+		cpu.register.R6 = case2;
+		
+		int[] instructionBit = {0,1,1,0,0,1,1,0,0,1,0,0,0,1,1,0};
+		cpu.instruction.OR(cpu, instructionBit);
+		
+		assertArrayEquals(expectedResult, cpu.register.R3);
+	}
 
 }
