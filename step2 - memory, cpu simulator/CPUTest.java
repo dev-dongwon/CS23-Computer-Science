@@ -86,5 +86,24 @@ public class CPUTest {
 		
 		assertArrayEquals(expectedResult, cpu.register.R3);
 	}
+	
+	@Test
+	public void ADDTest() {
+		Memory memory = new Memory();
+		CPU cpu = new CPU(memory);
+		
+		int[] case1 = {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0};
+		int[] case2 = {0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1};
+		int[] expectedResult = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+		
+//		ADD R4, R2, R5 ==> 0111 100 010 000 101 => R4 = R2 + R5;
+		cpu.register.R2 = case1;
+		cpu.register.R5 = case2;
+		
+		int[] instructionBit = {0,1,1,1,1,0,0,0,1,0,0,0,0,1,0,1};
+		cpu.execute(instructionBit);
+
+		assertArrayEquals(expectedResult, cpu.register.R4);
+	}
 
 }
