@@ -21,7 +21,6 @@ public class CPUTest {
 		int[] instructionBit = {0,0,0,1,0,0,1,0,1,0,0,0,0,0,1,1};
 		
 		cpu.memory.getMEMORY_MODEL()[0][30] = data;
-
 		cpu.register.R2 = baseReg;
 		cpu.register.R3 = offsetReg;
 		
@@ -46,7 +45,7 @@ public class CPUTest {
 		cpu.register.R4 = offsetReg;
 		cpu.register.R5 = data;
 		
-		cpu.instruction.STORE(cpu, instructionBit);
+		cpu.execute(instructionBit);
 		assertArrayEquals(data, cpu.memory.getMEMORY_MODEL()[1][30]);
 	}
 	
@@ -64,7 +63,7 @@ public class CPUTest {
 		cpu.register.R6 = case2;
 		
 		int[] instructionBit = {0,1,0,1,0,1,1,0,0,1,0,0,0,1,1,0};
-		cpu.instruction.AND(cpu, instructionBit);
+		cpu.execute(instructionBit);
 		
 		assertArrayEquals(expectedResult, cpu.register.R3);
 	}
@@ -83,7 +82,7 @@ public class CPUTest {
 		cpu.register.R6 = case2;
 		
 		int[] instructionBit = {0,1,1,0,0,1,1,0,0,1,0,0,0,1,1,0};
-		cpu.instruction.OR(cpu, instructionBit);
+		cpu.execute(instructionBit);
 		
 		assertArrayEquals(expectedResult, cpu.register.R3);
 	}
