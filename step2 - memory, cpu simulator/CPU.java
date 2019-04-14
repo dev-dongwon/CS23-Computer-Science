@@ -7,7 +7,11 @@ public class CPU {
 	Instruction instruction;
 	ALU ALU;
 
-	public CPU(Memory memory, Register register, ALU ALU, Instruction instruction) {
+	public CPU(Memory memory) {
+		Register register = new Register();
+		Instruction instruction = new Instruction();
+		ALU ALU = new ALU();
+		
 		this.memory = memory;
 		this.register = register;
 		this.instruction = instruction;
@@ -100,26 +104,26 @@ public class CPU {
 		case 4:
 			instruction.STORE(this, IR);
 			break;
-		case 5:
-			instruction.AND(this, IR);
-			break;
-		case 6:
-			instruction.OR(this, IR);
-			break;
-		case 7:
-			instruction.ADD(this, IR);
-			break;
-		case 8:
-			instruction.ADD(this, IR);
-			break;
-		case 9:
-			instruction.SUB(this, IR);
-			break;
-		case 10:
-			instruction.SUB(this, IR);
-			break;
-		case 11:
-			instruction.MOV(this, IR);
+//		case 5:
+//			instruction.AND(this, IR);
+//			break;
+//		case 6:
+//			instruction.OR(this, IR);
+//			break;
+//		case 7:
+//			instruction.ADD(this, IR);
+//			break;
+//		case 8:
+//			instruction.ADD(this, IR);
+//			break;
+//		case 9:
+//			instruction.SUB(this, IR);
+//			break;
+//		case 10:
+//			instruction.SUB(this, IR);
+//			break;
+//		case 11:
+//			instruction.MOV(this, IR);
 		default:
 			break;
 		}
