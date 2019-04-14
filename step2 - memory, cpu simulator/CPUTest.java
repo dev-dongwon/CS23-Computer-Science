@@ -1,6 +1,9 @@
 package step2ComputerSimulator;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 public class CPUTest {
@@ -20,7 +23,7 @@ public class CPUTest {
 		// LOAD, R1, R2, R3 => R2 + R3 의 주소 메모리값을 읽어서 R1로 로드
 		int[] instructionBit = {0,0,0,1,0,0,1,0,1,0,0,0,0,0,1,1};
 		
-		cpu.memory.getMEMORY_MODEL()[0][30] = data;
+		cpu.memory.getMEMORY_MODEL()[1][30] = data;
 		cpu.register.R2 = baseReg;
 		cpu.register.R3 = offsetReg;
 		
@@ -105,5 +108,41 @@ public class CPUTest {
 
 		assertArrayEquals(expectedResult, cpu.register.R4);
 	}
+	
+	@Test
+	public void SUBTest() {
+		
+		Memory memory = new Memory();
+		CPU cpu = new CPU(memory);
+		
+		int[] case1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+		int[] case2 = {0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0};
+		int[] expectedResult = {1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1};
 
+//		SUB R4, R2, R5 ==> 1010 100 010 000 101 => R4 = R2 - R5;
+		int[] instructionBit = {1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,1};
+
+		cpu.register.R2 = case1;
+		cpu.register.R5 = case2;
+		
+		cpu.execute(instructionBit);
+
+		assertArrayEquals(expectedResult, cpu.register.R4);
+	}
+	
+	@Test
+	public void MOVTest() {
+	
+		Memory memory = new Memory();
+		CPU cpu = new CPU(memory);
+		
+//		MOV R4, #250 ==> 1011 100 011111010
+		int[] instructionBit = {1,0,1,1,1,0,0,0,1,1,1,1,1,0,1,0};
+		int[] expectedResult = {0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,0};
+		cpu.execute(instructionBit);
+		
+		System.out.println(Arrays.toString(cpu.register.R4));
+		assertArrayEquals(expectedResult, cpu.register.R4);
+		
+	}
 }
