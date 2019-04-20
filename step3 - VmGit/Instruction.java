@@ -4,15 +4,15 @@ import java.io.File;
 
 public class Instruction {
 	
-	Utils utils;
+	InstructionUtils instructionUtils = new InstructionUtils();
 	
 	public Instruction() {
-		this.utils = new Utils();
+		this.instructionUtils = new InstructionUtils();
 	}
 	
 	public void init(String repositoryName) {
 	
-		String currentPath = utils.getCurrentPath();
+		String currentPath = instructionUtils.getCurrentPath();
 		File repository = new File(currentPath + "\\" + repositoryName);
 		
 		if (repository.mkdir()) {
@@ -28,7 +28,7 @@ public class Instruction {
 		File[] fileList = repository.listFiles();
 		
 		if (fileList == null) {
-			repository = new File(utils.getCurrentPath());
+			repository = new File(instructionUtils.getCurrentPath());
 			fileList = repository.listFiles();
 		}
 		
