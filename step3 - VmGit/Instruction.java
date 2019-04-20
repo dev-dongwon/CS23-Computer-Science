@@ -11,6 +11,7 @@ public class Instruction {
 	}
 	
 	public void init(String repositoryName) {
+	
 		String currentPath = utils.getCurrentPath();
 		File repository = new File(currentPath + "\\" + repositoryName);
 		
@@ -26,18 +27,22 @@ public class Instruction {
 		File repository = new File(repositoryName);
 		File[] fileList = repository.listFiles();
 		
-		try {
+		if (fileList == null) {
+			repository = new File(utils.getCurrentPath());
+			fileList = repository.listFiles();
+		}
 		
-			for (File file : fileList) {
-				System.out.println(file);
-			}
-
-		} catch (NullPointerException e) {
-			File localRepository = new File(utils.getCurrentPath());
-			File[] localRepos = localRepository.listFiles();
-			for (File file : localRepos) {
-				System.out.println(file);
+		for (File file : fileList) {
+			if (file.isDirectory()) {
+				System.out.println(file.getName() + "/");
+			} else {
+				System.out.println(file.getName());
 			}
 		}
-	}	
+	}
+	
+	public static void main(String[] args) {
+		Instruction instruction = new Instruction();
+		instruction.status("");
+	}
 }
