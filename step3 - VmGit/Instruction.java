@@ -10,7 +10,6 @@ public class Instruction {
 		this.utils = new Utils();
 	}
 	
-	
 	public void init(String repositoryName) {
 		String currentPath = utils.getCurrentPath();
 		File repository = new File(currentPath + "\\" + repositoryName);
@@ -21,4 +20,24 @@ public class Instruction {
 			System.out.println("This repository already exists");
 		}
 	}
+	
+	public void status(String repositoryName) {
+		
+		File repository = new File(repositoryName);
+		File[] fileList = repository.listFiles();
+		
+		try {
+		
+			for (File file : fileList) {
+				System.out.println(file);
+			}
+
+		} catch (NullPointerException e) {
+			File localRepository = new File(utils.getCurrentPath());
+			File[] localRepos = localRepository.listFiles();
+			for (File file : localRepos) {
+				System.out.println(file);
+			}
+		}
+	}	
 }
