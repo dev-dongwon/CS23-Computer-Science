@@ -41,8 +41,14 @@ public class Instruction {
 		}
 	}
 	
-	public static void main(String[] args) {
-		Instruction instruction = new Instruction();
-		instruction.status("");
+	public String checkout(String repositoryName) {
+		String repoName = "";
+		File repository = new File(repositoryName);
+		
+		if (repository.exists()) {
+			repoName += repositoryName;
+		}
+		
+		return repoName;
 	}
 }
