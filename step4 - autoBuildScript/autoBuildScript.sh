@@ -32,6 +32,36 @@ targetDir="/home/dongwon/shellPractice/target/"
 scriptLocation="/home/dongwon/shellPractice/autoBuildScript.sh"
 
 
+# 현재 root dir 구조
+
+:<<'END'
+├── CS23-Computer-Science
+│   ├── README.md
+│   ├── step1
+│   │   ├── Adder.java
+│   │   ├── AdderTest.java
+│   │   ├── Converter.java
+│   │   └── ConverterTest.java
+│   ├── step2
+│   │   ├── ALU.java
+│   │   ├── CPU.java
+│   │   ├── CPUTest.java
+│   │   ├── Instruction.java
+│   │   ├── Memory.java
+│   │   ├── MemoryTest.java
+│   │   ├── Register.java
+│   │   └── SimulationTest.java
+│   └── step3
+│       ├── GitArea.java
+│       ├── Instruction.java
+│       ├── InstructionUtils.java
+│       ├── RemoteArea.java
+│       ├── VmGitProgram.java
+│       └── VmGitProgramUtils.java
+
+END
+
+
 ####### utils ########
 
 # progress Bar 표시
